@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classroom Task Tracker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-icon">✓</span> Classroom <span class="brand-light">/ Tasks</span></div>
+    <span class="top-note">A little progress every day adds up.</span>
+  </header>
+
+  <main class="container">
+    <section class="welcome">
+      <div>
+        <p class="eyebrow">YOUR LEARNING SPACE</p>
+        <h1>Classroom task tracker</h1>
+        <p class="subtitle">Plan your work. Stay on track. Celebrate what you finish.</p>
+      </div>
+      <div class="date-chip" id="today"></div>
+    </section>
+
+    <section class="stats-grid" aria-label="Task statistics">
+      <article class="stat-card"><div class="stat-label">Total tasks <span>▤</span></div><strong id="total">0</strong><small>All your tasks</small></article>
+      <article class="stat-card"><div class="stat-label">To do <span>◷</span></div><strong id="pending">0</strong><small>Ready to work on</small></article>
+      <article class="stat-card"><div class="stat-label">Completed <span>✓</span></div><strong id="completed">0</strong><small>Great work so far</small></article>
+      <article class="stat-card"><div class="stat-label">Progress <span>↗</span></div><strong id="progress">0%</strong><small>Tasks finished</small></article>
+    </section>
+
+    <section class="main-grid">
+      <aside class="panel">
+        <div class="panel-heading"><h2>Add a new task</h2><p>Write down what you need to do next.</p></div>
+        <form id="task-form" class="task-form">
+          <label for="title">Task title</label>
+          <input id="title" name="title" maxlength="100" placeholder="e.g. Finish science worksheet" required>
+          <label for="subject">Subject</label>
+          <input id="subject" name="subject" maxlength="50" placeholder="e.g. Science" required>
+          <label for="priority">Priority</label>
+          <select id="priority" name="priority">
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+            <option value="Low">Low</option>
+          </select>
+          <button class="primary-button" type="submit">＋ Add task</button>
+          <p class="form-hint">Tip: Use a short, clear title to remember what you need to do.</p>
+          <p id="form-message" class="form-message" role="status"></p>
+        </form>
+      </aside>
+
+      <section class="panel">
+        <div class="tasks-heading">
+          <div><h2>Your tasks</h2><p id="task-count">Loading tasks...</p></div>
+        </div>
+        <div class="filters" role="group" aria-label="Filter tasks by status">
+          <button class="filter active" data-status="all">All tasks</button>
+          <button class="filter" data-status="pending">To do</button>
+          <button class="filter" data-status="completed">Completed</button>
+        </div>
+        <div id="task-list" class="task-list" aria-live="polite"></div>
+      </section>
+    </section>
+    <p class="footer-note">Tasks are saved by the Flask server in a local JSON file.</p>
+  </main>
+</body>
+</html>
